@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Howto Design Landingpage</title>
+  <desc id="desc">A four-stage workflow from project constraints and brand interview to design system and local HTML handoff.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#14243d"/>
+      <stop offset="1" stop-color="#244b78"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#398cff"/>
+      <stop offset="1" stop-color="#8fd2ff"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity=".06"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <circle cx="1380" cy="110" r="250" fill="#398cff" fill-opacity=".12"/>
+  <circle cx="120" cy="790" r="210" fill="#df0615" fill-opacity=".08"/>
+  <text x="110" y="150" fill="#9fd7ff" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">CODEX SKILL · LOCAL HTML</text>
+  <text x="110" y="255" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="78" font-weight="800" letter-spacing="-3">Howto Design Landingpage</text>
+  <text x="110" y="315" fill="#d5e6f7" font-family="Inter, Arial, sans-serif" font-size="31">A design-first workflow from brand interview to reviewable HTML.</text>
+  <g transform="translate(110 410)">
+    <g>
+      <rect width="310" height="210" rx="28" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".17"/>
+      <text x="30" y="55" fill="#9fd7ff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">01</text>
+      <text x="30" y="105" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700">Constrain</text>
+      <text x="30" y="145" fill="#c8d9ea" font-family="Inter, Arial, sans-serif" font-size="18">Market, audience, action,</text>
+      <text x="30" y="172" fill="#c8d9ea" font-family="Inter, Arial, sans-serif" font-size="18">assets and boundaries.</text>
+    </g>
+    <g transform="translate(350 0)">
+      <rect width="310" height="210" rx="28" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".17"/>
+      <text x="30" y="55" fill="#9fd7ff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">02</text>
+      <text x="30" y="105" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700">Interview</text>
+      <text x="30" y="145" fill="#c8d9ea" font-family="Inter, Arial, sans-serif" font-size="18">Product truth, brand feel</text>
+      <text x="30" y="172" fill="#c8d9ea" font-family="Inter, Arial, sans-serif" font-size="18">and visual direction.</text>
+    </g>
+    <g transform="translate(700 0)">
+      <rect width="310" height="210" rx="28" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".17"/>
+      <text x="30" y="55" fill="#9fd7ff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">03</text>
+      <text x="30" y="105" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700">Design system</text>
+      <text x="30" y="145" fill="#c8d9ea" font-family="Inter, Arial, sans-serif" font-size="18">Color, type, shape, density</text>
+      <text x="30" y="172" fill="#c8d9ea" font-family="Inter, Arial, sans-serif" font-size="18">and content hierarchy.</text>
+    </g>
+    <g transform="translate(1050 0)">
+      <rect width="310" height="210" rx="28" fill="url(#accent)" fill-opacity=".82" stroke="#c7e9ff" stroke-opacity=".35"/>
+      <text x="30" y="55" fill="#eef8ff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">04</text>
+      <text x="30" y="105" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700">Local handoff</text>
+      <text x="30" y="145" fill="#eef8ff" font-family="Inter, Arial, sans-serif" font-size="18">Reviewable HTML, versions</text>
+      <text x="30" y="172" fill="#eef8ff" font-family="Inter, Arial, sans-serif" font-size="18">and honest review notes.</text>
+    </g>
+  </g>
+  <g transform="translate(110 685)">
+    <rect width="290" height="54" rx="27" fill="#ffffff" fill-opacity=".09" stroke="#ffffff" stroke-opacity=".16"/>
+    <text x="145" y="35" text-anchor="middle" fill="#eaf6ff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">No Stitch API</text>
+    <rect x="310" width="290" height="54" rx="27" fill="#ffffff" fill-opacity=".09" stroke="#ffffff" stroke-opacity=".16"/>
+    <text x="455" y="35" text-anchor="middle" fill="#eaf6ff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">No deployment</text>
+    <rect x="620" width="290" height="54" rx="27" fill="#ffffff" fill-opacity=".09" stroke="#ffffff" stroke-opacity=".16"/>
+    <text x="765" y="35" text-anchor="middle" fill="#eaf6ff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Local-first workflow</text>
+  </g>
+</svg>

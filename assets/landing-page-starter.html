@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="{{LANGUAGE}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <title>{{PAGE_TITLE}}</title>
+  <style>
+    :root {
+      --primary: {{PRIMARY_COLOR}};
+      --primary-dark: {{PRIMARY_DARK}};
+      --accent: {{ACCENT_COLOR}};
+      --ink: {{INK_COLOR}};
+      --muted: {{MUTED_COLOR}};
+      --canvas: {{CANVAS_COLOR}};
+      --surface: {{SURFACE_COLOR}};
+      --line: {{LINE_COLOR}};
+      --font-display: {{HEADLINE_FONT_STACK}};
+      --font-body: {{BODY_FONT_STACK}};
+      --radius-control: {{CONTROL_RADIUS}};
+      --radius-card: {{CARD_RADIUS}};
+      --radius-panel: {{PANEL_RADIUS}};
+      --shadow: 0 24px 70px rgba(24, 42, 70, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.65;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    img, svg { display: block; max-width: 100%; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+    }
+    h1 { font-size: clamp(3rem, 7vw, 6rem); }
+    h2 { font-size: clamp(2.2rem, 4vw, 4rem); }
+    .container { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+    .skip-link {
+      position: fixed; z-index: 100; top: 10px; left: 10px;
+      padding: 10px 15px; border-radius: 999px;
+      color: white; background: var(--ink); transform: translateY(-150%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .eyebrow {
+      display: inline-block; margin-bottom: 16px; color: var(--primary-dark);
+      font-family: var(--font-display); font-size: .74rem; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase;
+    }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 48px; padding: 0 22px; border: 1px solid transparent;
+      border-radius: var(--radius-control); font-family: var(--font-display);
+      font-size: .92rem; font-weight: 800; cursor: pointer;
+      transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: white; background: var(--primary); box-shadow: 0 12px 28px color-mix(in srgb, var(--primary) 28%, transparent); }
+    .button-primary:hover { background: var(--primary-dark); }
+    .button-secondary { color: var(--ink); background: var(--surface); border-color: var(--line); }
+
+    .site-header {
+      position: -webkit-sticky; position: sticky; top: 0; z-index: 50;
+      background: color-mix(in srgb, var(--canvas) 88%, transparent);
+      border-bottom: 1px solid var(--line); backdrop-filter: blur(16px);
+    }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 800; }
+    .brand-logo { width: auto; height: 46px; }
+    .brand-text { font-size: 1rem; }
+    .nav-links { display: flex; gap: 26px; color: var(--muted); font-size: .9rem; font-weight: 700; }
+    .nav .button { min-height: 46px; }
+    .menu-button { display: none; }
+
+    .hero { padding: 80px 0 92px; }
+    .hero-grid { display: grid; grid-template-columns: 1fr .9fr; gap: 64px; align-items: center; }
+    .hero-copy { max-width: 650px; }
+    .hero-copy h1 { margin-bottom: 22px; }
+    .hero-copy p { max-width: 580px; color: var(--muted); font-size: 1.15rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .hero-media { min-height: 520px; border-radius: var(--radius-panel); overflow: hidden; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; }
+
+    .proof-strip { border-block: 1px solid var(--line); background: var(--surface); }
+    .proof-items { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .proof-item { min-height: 92px; display: grid; place-items: center; padding: 18px; text-align: center; font-family: var(--font-display); font-size: .82rem; font-weight: 800; }
+    .proof-item + .proof-item { border-left: 1px solid var(--line); }
+
+    .section { padding: 110px 0; }
+    .section-heading { max-width: 760px; margin: 0 auto 54px; text-align: center; }
+    .section-heading p { color: var(--muted); }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feature-card { padding: 30px; border-radius: var(--radius-card); border: 1px solid var(--line); background: var(--surface); }
+    .feature-card .icon { width: 46px; height: 46px; display: grid; place-items: center; margin-bottom: 28px; border-radius: 15px; background: color-mix(in srgb, var(--primary) 12%, white); color: var(--primary-dark); }
+    .feature-card p { margin-bottom: 0; color: var(--muted); }
+
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+    .story-panel { padding: 44px; border-radius: var(--radius-panel); background: var(--ink); color: white; }
+    .story-panel p { color: color-mix(in srgb, white 76%, transparent); }
+    .story-media { min-height: 420px; border-radius: var(--radius-panel); overflow: hidden; background: var(--surface); }
+    .story-media img { width: 100%; height: 100%; object-fit: cover; }
+
+    .signup-panel { display: grid; grid-template-columns: .9fr 1.1fr; gap: 42px; align-items: center; padding: 48px; border-radius: var(--radius-panel); background: color-mix(in srgb, var(--primary) 8%, var(--surface)); border: 1px solid var(--line); }
+    .signup-form { display: grid; gap: 13px; }
+    .signup-row { display: grid; grid-template-columns: 1fr auto; gap: 9px; }
+    .signup-row input { min-width: 0; height: 50px; padding: 0 15px; border: 1px solid var(--line); border-radius: var(--radius-control); font: inherit; }
+    .consent { display: flex; align-items: flex-start; gap: 8px; color: var(--muted); font-size: .78rem; }
+    .consent input { margin-top: 3px; }
+    .form-status { min-height: 22px; margin: 0; color: var(--muted); font-size: .78rem; }
+
+    .site-footer { padding: 0 0 32px; }
+    .footer-main { display: grid; grid-template-columns: 1.2fr .8fr .8fr; gap: 48px; padding: 42px 0 32px; }
+    .footer-main h4 { margin: 0 0 12px; font-family: var(--font-display); font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; }
+    .footer-copy, .footer-contact, .footer-social { color: var(--muted); font-size: .86rem; }
+    .footer-contact, .footer-social { display: grid; gap: 9px; }
+    .social-row { display: flex; gap: 9px; }
+    .social-link { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); }
+    .footer-legal { padding-top: 20px; border-top: 1px solid var(--line); text-align: center; color: var(--muted); font-size: .72rem; line-height: 1.7; }
+
+    .mobile-cta { display: none; }
+    .cookie-banner {
+      position: fixed; z-index: 80; left: 50%; bottom: 20px; transform: translateX(-50%);
+      width: min(1040px, calc(100% - 28px)); display: grid; grid-template-columns: 1fr auto;
+      gap: 20px; align-items: center; padding: 18px 20px; border-radius: 18px;
+      background: var(--ink); color: white; box-shadow: 0 24px 70px rgba(0,0,0,.28);
+    }
+    .cookie-banner[hidden] { display: none; }
+    .cookie-copy p { margin: 0; color: color-mix(in srgb, white 76%, transparent); font-size: .78rem; }
+    .cookie-actions { display: flex; gap: 8px; }
+    .cookie-button { min-height: 40px; padding: 0 14px; border: 1px solid color-mix(in srgb, white 24%, transparent); border-radius: 999px; background: transparent; color: white; font: inherit; font-size: .76rem; font-weight: 700; cursor: pointer; }
+    .cookie-button.primary { background: white; color: var(--ink); }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 600ms ease, transform 600ms ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hero-grid, .story-grid, .signup-panel { grid-template-columns: 1fr; }
+      .hero-media { min-height: 440px; }
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-main { grid-template-columns: 1fr 1fr; }
+      .footer-main > :first-child { grid-column: 1 / -1; }
+      .cookie-banner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      body { font-size: 16px; }
+      .container { width: min(100% - 28px, 620px); }
+      .hero { padding: 54px 0 66px; }
+      .hero-grid { gap: 34px; }
+      .hero-copy h1 { font-size: clamp(2.7rem, 13vw, 4rem); }
+      .hero-actions .button { width: 100%; }
+      .proof-items { grid-template-columns: 1fr 1fr; }
+      .proof-item:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+      .proof-item:nth-child(4) { border-top: 1px solid var(--line); }
+      .section { padding: 78px 0; }
+      .feature-grid, .footer-main, .signup-row { grid-template-columns: 1fr; }
+      .footer-main > :first-child { grid-column: auto; }
+      .story-panel, .signup-panel { padding: 30px 24px; }
+      .mobile-cta { position: fixed; z-index: 60; left: 12px; right: 12px; bottom: 12px; display: flex; min-height: 52px; align-items: center; justify-content: center; border-radius: 999px; background: var(--primary); color: white; font-family: var(--font-display); font-weight: 800; }
+      .cookie-banner { bottom: 76px; }
+      .site-footer { padding-bottom: 84px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#" aria-label="{{BRAND_ARIA_LABEL}}">
+        <img class="brand-logo" src="{{BRAND_LOGO}}" width="{{LOGO_WIDTH}}" height="{{LOGO_HEIGHT}}" alt="{{BRAND_LOGO_ALT}}">
+        <span class="brand-text">{{BRAND_NAME}}</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#product">{{NAV_PRODUCT}}</a>
+        <a href="#features">{{NAV_FEATURES}}</a>
+        <a href="#details">{{NAV_DETAILS}}</a>
+      </nav>
+      <a class="button button-primary" href="{{PRIMARY_CTA_URL}}">{{PRIMARY_CTA_LABEL}}</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">{{HERO_EYEBROW}}</span>
+          <h1>{{HERO_HEADLINE}}</h1>
+          <p>{{HERO_SUBCOPY}}</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="{{PRIMARY_CTA_URL}}">{{PRIMARY_CTA_LABEL}}</a>
+            <a class="button button-secondary" href="#product">{{SECONDARY_CTA_LABEL}}</a>
+          </div>
+        </div>
+        <div class="hero-media reveal">
+          <img src="{{HERO_IMAGE}}" width="{{HERO_WIDTH}}" height="{{HERO_HEIGHT}}" alt="{{HERO_IMAGE_ALT}}">
+        </div>
+      </div>
+    </section>
+
+    <div class="proof-strip" aria-label="Trust highlights">
+      <div class="container proof-items">
+        <div class="proof-item">{{PROOF_1}}</div>
+        <div class="proof-item">{{PROOF_2}}</div>
+        <div class="proof-item">{{PROOF_3}}</div>
+        <div class="proof-item">{{PROOF_4}}</div>
+      </div>
+    </div>
+
+    <section class="section" id="product">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">{{STORY_EYEBROW}}</span>
+          <h2>{{STORY_HEADLINE}}</h2>
+          <p>{{STORY_INTRO}}</p>
+        </div>
+        <div class="story-grid">
+          <article class="story-panel reveal">
+            <h3>{{STORY_PANEL_TITLE}}</h3>
+            <p>{{STORY_PANEL_COPY}}</p>
+          </article>
+          <figure class="story-media reveal">
+            <img src="{{STORY_IMAGE}}" width="{{STORY_WIDTH}}" height="{{STORY_HEIGHT}}" alt="{{STORY_IMAGE_ALT}}" loading="lazy">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">{{FEATURES_EYEBROW}}</span>
+          <h2>{{FEATURES_HEADLINE}}</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card reveal">
+            <div class="icon" aria-hidden="true">01</div>
+            <h3>{{FEATURE_1_TITLE}}</h3>
+            <p>{{FEATURE_1_COPY}}</p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="icon" aria-hidden="true">02</div>
+            <h3>{{FEATURE_2_TITLE}}</h3>
+            <p>{{FEATURE_2_COPY}}</p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="icon" aria-hidden="true">03</div>
+            <h3>{{FEATURE_3_TITLE}}</h3>
+            <p>{{FEATURE_3_COPY}}</p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="icon" aria-hidden="true">04</div>
+            <h3>{{FEATURE_4_TITLE}}</h3>
+            <p>{{FEATURE_4_COPY}}</p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="icon" aria-hidden="true">05</div>
+            <h3>{{FEATURE_5_TITLE}}</h3>
+            <p>{{FEATURE_5_COPY}}</p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="icon" aria-hidden="true">06</div>
+            <h3>{{FEATURE_6_TITLE}}</h3>
+            <p>{{FEATURE_6_COPY}}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="details">
+      <div class="container">
+        <div class="signup-panel reveal">
+          <div>
+            <span class="eyebrow">{{SIGNUP_EYEBROW}}</span>
+            <h2>{{SIGNUP_HEADLINE}}</h2>
+            <p>{{SIGNUP_COPY}}</p>
+          </div>
+          <form class="signup-form" id="signup-form" novalidate>
+            <label for="signup-email">Email address</label>
+            <div class="signup-row">
+              <input id="signup-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+              <button class="button button-primary" type="submit">{{SIGNUP_BUTTON}}</button>
+            </div>
+            <label class="consent">
+              <input type="checkbox" required>
+              <span>{{SIGNUP_CONSENT}}</span>
+            </label>
+            <p class="form-status" id="signup-status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div>
+          <img class="brand-logo" src="{{BRAND_LOGO}}" width="{{LOGO_WIDTH}}" height="{{LOGO_HEIGHT}}" alt="{{BRAND_LOGO_ALT}}">
+          <p class="footer-copy">{{FOOTER_COPY}}</p>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <div class="footer-contact">
+            <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a>
+          </div>
+        </div>
+        <div>
+          <h4>Social</h4>
+          <div class="footer-social">
+            <div class="social-row">
+              <a class="social-link" href="{{SOCIAL_URL}}" target="_blank" rel="noopener" aria-label="{{SOCIAL_LABEL}}">{{SOCIAL_LABEL}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <p>{{LEGAL_COPY}}</p>
+        <p>{{COPYRIGHT_COPY}}</p>
+      </div>
+    </div>
+  </footer>
+
+  <a class="mobile-cta" href="{{PRIMARY_CTA_URL}}">{{PRIMARY_CTA_LABEL}}</a>
+
+  <aside class="cookie-banner" id="cookie-banner" aria-label="Cookie consent" hidden>
+    <div class="cookie-copy">
+      <strong>Your privacy, your choice.</strong>
+      <p>We use optional cookies to improve the site. You can accept all or reject optional cookies. {{PRIVACY_LINK}}</p>
+    </div>
+    <div class="cookie-actions">
+      <button class="cookie-button" type="button" id="reject-cookies">Reject optional</button>
+      <button class="cookie-button primary" type="button" id="accept-cookies">Accept all</button>
+    </div>
+  </aside>
+
+  <script>
+    const consentKey = "{{PROJECT_SLUG}}-cookie-consent-v1";
+    const cookieBanner = document.querySelector("#cookie-banner");
+
+    if (!localStorage.getItem(consentKey)) {
+      requestAnimationFrame(() => { cookieBanner.hidden = false; });
+    }
+
+    function saveConsent(analytics, marketing) {
+      localStorage.setItem(consentKey, JSON.stringify({
+        necessary: true,
+        analytics,
+        marketing,
+        updatedAt: new Date().toISOString()
+      }));
+      cookieBanner.hidden = true;
+    }
+
+    document.querySelector("#accept-cookies")?.addEventListener("click", () => saveConsent(true, true));
+    document.querySelector("#reject-cookies")?.addEventListener("click", () => saveConsent(false, false));
+
+    const signupForm = document.querySelector("#signup-form");
+    const signupStatus = document.querySelector("#signup-status");
+    const SIGNUP_ENDPOINT = "";
+
+    signupForm?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!signupForm.checkValidity()) {
+        signupForm.reportValidity();
+        return;
+      }
+      if (!SIGNUP_ENDPOINT) {
+        signupStatus.textContent = "Design preview only. Connect the form endpoint before launch.";
+        return;
+      }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+  </script>
+</body>
+</html>

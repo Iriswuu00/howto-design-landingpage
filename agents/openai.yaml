@@ -1,0 +1,4 @@
+interface:
+  display_name: "Howto Design Landingpage"
+  short_description: "从访谈与设计系统到本地 HTML 的完整落地页工作流"
+  default_prompt: "使用 $howto-design-landingpage 设计并生成本地 HTML 落地页。"
